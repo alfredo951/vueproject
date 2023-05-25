@@ -2,13 +2,14 @@
 
 import { apiClient } from '../Api/intercetor';
 import DropDown from "./DropDown.vue"
+import { type MenuItems } from '../models/menuItem';
 
 
 
 const props=defineProps<{
-    menuItems:{name:string,links:{name:string, link:string}[]
+    menuItems:MenuItems[]
               
-              }[]
+              
   }>();
 
 
@@ -22,11 +23,17 @@ const props=defineProps<{
       <div class="nav">
         <nav>
       <div className='logo'>
-          <img  alt='logo' src="@/assets/logo.svg" style="width:100px"/>
+        <h1 >SICM@</h1>
+         <!--<img  alt='logo' src="@/assets/logo.svg" style="width:100px"/>--> 
       </div>
       <div>
         <ul  className='listMenuItem'>
-         <li v-for="{name,links} of menuItems" :key="name"><DropDown  :text="name" :links="links" /></li>
+         <li v-for="{title, links, link} of menuItems" :key="title">
+          
+          <DropDown v-if="links" :title="title" :links="links" />
+          <div class="navLink" v-if="link"><RouterLink   :to="link">{{title}}</RouterLink></div>
+        </li>
+         
    
 
       </ul>
@@ -47,13 +54,37 @@ const props=defineProps<{
 <style>
 
 .nav{
-  position:sticky; top:0 ;width:100% ;background:#FFF;
-    box-shadow:5px 5px 15px 5px rgba(0,0,0,0.38);padding:25px 0px;z-index:12
+  position:sticky; top:0 ;width:100% ;background:aliceblue;
+   padding:25px 0px;z-index:12
 }
 
 .navbar{
   width: 100%;
 
+  background-color: rgba(72, 98, 248, 0.601)
+}
+
+
+.logo{
+  color:#333;font-size:2rem;
+  font-weight: 800;
+}
+
+.navLink{
+    color: #333;
+    font-size: 1.3rem;
+    background-color: #fff;
+    box-shadow:1px 1px 5px 1px rgba(0,0,0,0.38);padding:25px 0px;
+    padding: 2px 0px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
 }
 
 </style>

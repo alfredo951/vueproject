@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {  RouterView } from 'vue-router'
-import { computed, defineAsyncComponent, onMounted, reactive, ref } from 'vue'
+import {  onMounted, reactive, ref } from 'vue'
 import { getMenu } from './Api/component';
 import NavBarMenu from './components/NavBarMenu.vue'
-import { apiClient } from './Api/intercetor';
-
-const menuItemsM=ref<{name:string,links:{name:string,link:string}[]}[]>([]);
-//const getMenuItems=computed(()=>menuItems)
+import type { MenuItems } from './models/menuItem';
 
 
-const dataM= reactive<{result:{name:string,links:{name:string,link:string}[]}[]}>({
+
+
+
+const dataM= reactive<{result:MenuItems[]}>({
   result:[]
 })
 
@@ -19,7 +19,7 @@ onMounted(async()=>{
    const data= await getMenu();
    console.log(data) 
    if(data && data.data){
-  dataM.result=data.data as {name:string,links:{name:string,link:string}[]}[]
+  dataM.result=data.data as MenuItems[]
   console.log(dataM.result);
    }else{
 console.log(data);
@@ -54,6 +54,14 @@ console.log(data);
 
 
 
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
 #app{
   width: 100%!important;
   display: flex;
@@ -70,7 +78,7 @@ console.log(data);
   justify-content: space-evenly;
  
   align-items: center;
-  background-color: #fff;
+ 
   list-style: none;
 
 }
@@ -79,24 +87,43 @@ console.log(data);
 
   font-weight: bold;
   list-style: none;
-  transition: 1s ease-in-out;
+  transition: .5s ease-in-out;
 }
 
 .listMenuItem li {
   max-width: 150px;
-  height: 40px;
-  padding: 10px;
+ 
   font-weight: bold;
   list-style: none;
   transition: 1s ease-in-out;
+  color: #333;
+    font-size: 1.3rem;
+    background-color: aliceblue;
+    
+    padding: 2px 0px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    padding: 0 10px;
 }
 
 
 
 .listMenuItem li a:hover{
 
-
+  
   border-bottom:2px solid #333;
+}
+
+a{
+  color: #333;
+
+}
+
+a:hover{
+  color: #333;
+  background: transparent;
 }
 
 .logo{

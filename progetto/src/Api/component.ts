@@ -1,3 +1,4 @@
+import type { MenuItems } from "../models/menuItem";
 import { apiClient, checkResponse, setHeader } from "./intercetor"
 import {type AxiosError} from "axios"
 
@@ -6,7 +7,7 @@ import {type AxiosError} from "axios"
 export const getMenu= async()=>{
     try {
         setHeader(apiClient);
-        return (await apiClient.get<{name:string}[]>("/api/component/menu"))
+        return (await apiClient.get<MenuItems[]>("/api/component/menu"))
     } catch (exceptions) {
         console.log(exceptions);
         const exception=exceptions as {

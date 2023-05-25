@@ -1,18 +1,21 @@
 
 
 <script setup lang="ts">
-import { defineComponent, ref } from 'vue'
+import {  ref } from 'vue'
 
 import Input from './../components/InputComponents.vue'
-import type { UserI } from '../models/user';
+import type { UserI } from '../models/User';
 import { login } from '../Api/Auth';
 import router from '../router';
 import { useUserStore  } from '../stores/counter';
-import {storeToRefs} from 'pinia'
+
+import ButtonComponent from '../components/ButtonComponent.vue';
+import ColumnComponent from '../components/ColumnComponent.vue';
+import RowComponent from '../components/RowComponent.vue';
 
 const exampleStore = useUserStore()
-const { getToken } = storeToRefs(exampleStore)
-//This action is made up for the example
+
+
 const { setUser } = exampleStore
 
 const userM =ref<UserI>({
@@ -61,49 +64,28 @@ else{
 
 
 <template>
-    <div class="row">
-    <div class="column" style="background-color: aliceblue;">
+  <RowComponent>
+    <ColumnComponent classNumber="2" backgroundColor="aliceblue">
 
 
-  <img  alt='logo' src="@/assets/logo.svg" style="width:100px"/>
+ <h1 style="font-size: 2.5rem; font-weight: 800;color: #333;">SICM@</h1>
 
-    </div>
-  <div class="column">
+</ColumnComponent>
 
+<ColumnComponent classNumber="2" backgroundColor="rgba(255,255,255,0.5)">
 
 
 <Input label="Username" type="text"  required  @Input="onUsername" />
 <Input label="Password" type="text"  required  @Input="onPassword" />
 
 
+<ButtonComponent color="#333" backgroundColor="#eee" :genericFunction="()=>loginAction(userM.name, userM.password )"></ButtonComponent>
 
-<button @click="()=>loginAction(userM.name, userM.password )" >ciao</button>
-</div>
-</div>
+
+</ColumnComponent>
+</RowComponent>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
 
-  }
-
-
-
-  .column {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: 45%;
-    height: 100%;
-
-    
-  }
-}
 </style>
