@@ -2,7 +2,7 @@
 
 import { apiClient } from '../Api/intercetor';
 import DropDown from "./DropDown.vue"
-import { type MenuItems } from '../models/menuItem';
+import { type MenuItems } from '../models/MenuItem';
 
 
 
@@ -23,8 +23,8 @@ const props=defineProps<{
       <div class="nav">
         <nav>
       <div className='logo'>
-        <h1 >SICM@</h1>
-         <!--<img  alt='logo' src="@/assets/logo.svg" style="width:100px"/>--> 
+      
+        <img  alt='logo' src="@/assets/logo.svg" style="width:120px"/>
       </div>
       <div>
         <ul  className='listMenuItem'>
@@ -54,7 +54,7 @@ const props=defineProps<{
 <style>
 
 .nav{
-  position:sticky; top:0 ;width:100% ;background:aliceblue;
+  position:sticky; top:0 ;width:100% ;background:#fff;
    padding:25px 0px;z-index:12
 }
 

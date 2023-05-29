@@ -5,13 +5,20 @@
   const props=defineProps<{
     label: string
     type:string,
-   
+    index?:number
+    checked?:boolean
     required:boolean
   }>();
-  const emit=defineEmits(["update:modelValue"]);
+  const emit=defineEmits(["update:modelValue","update:model"]);
   const updateValue = (e: Event) => {
     
+
+    if(props.type==="checkbox")
+    emit('update:modelValue', (e.target as HTMLInputElement).checked)
+    else
   emit('update:modelValue', (e.target as HTMLInputElement).value)
+    if(props.index)
+  emit('update:model',props.index )
 
 };
 
@@ -31,7 +38,7 @@
         :id="label"
         :type="type"
         :required=required
-   
+        :checked="checked"
         @input="updateValue"
   
       />

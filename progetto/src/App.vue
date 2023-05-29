@@ -1,31 +1,12 @@
 <script setup lang="ts">
 import {  RouterView } from 'vue-router'
-import {  onMounted, reactive, ref } from 'vue'
-import { getMenu } from './Api/component';
-import NavBarMenu from './components/NavBarMenu.vue'
-import type { MenuItems } from './models/menuItem';
+import DashBoard from './views/DashBoard.vue';
 
 
 
 
 
-const dataM= reactive<{result:MenuItems[]}>({
-  result:[]
-})
 
-
-onMounted(async()=>{
-   
-   const data= await getMenu();
-   console.log(data) 
-   if(data && data.data){
-  dataM.result=data.data as MenuItems[]
-  console.log(dataM.result);
-   }else{
-console.log(data);
-   }
-
-})
 
 
 
@@ -35,10 +16,7 @@ console.log(data);
 
     <div style="width: 100%;" v-if="$route.fullPath.includes('dashboard')">
 
-      <NavBarMenu
-      :menuItems="dataM.result"
-      />
-
+      <DashBoard/>
 
   </div>
 
@@ -75,8 +53,10 @@ body{
 .listMenuItem{
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
- 
+  justify-content: flex-start;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow:1px 1px 5px 1px rgba(0,0,0,0.38);
   align-items: center;
  
   list-style: none;

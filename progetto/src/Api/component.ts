@@ -1,4 +1,4 @@
-import type { MenuItems } from "../models/menuItem";
+import type { MenuItems } from "../models/MenuItem";
 import { apiClient, checkResponse, setHeader } from "./intercetor"
 import {type AxiosError} from "axios"
 

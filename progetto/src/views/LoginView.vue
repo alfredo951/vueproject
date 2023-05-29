@@ -1,17 +1,18 @@
 
 
 <script setup lang="ts">
-import {  ref } from 'vue'
+import {  onMounted, ref } from 'vue'
 
 import Input from './../components/InputComponents.vue'
 import type { UserI } from '../models/User';
 import { login } from '../Api/Auth';
 import router from '../router';
 import { useUserStore  } from '../stores/counter';
-
+import jwt_decode from 'jwt-decode'
 import ButtonComponent from '../components/ButtonComponent.vue';
 import ColumnComponent from '../components/ColumnComponent.vue';
 import RowComponent from '../components/RowComponent.vue';
+import { logOut } from '../Api/intercetor';
 
 const exampleStore = useUserStore()
 
@@ -57,6 +58,31 @@ else{
 }
 
 
+onMounted(()=>{
+   
+const token= localStorage.getItem("st");
+
+if(token){
+
+
+  const tokenDecode:{scadenza:number}= jwt_decode(token);
+  if(tokenDecode){
+    const {scadenza }=tokenDecode
+    console.log(tokenDecode,new Date().getTime())
+    if (!(new Date()>= new Date(scadenza) )) {
+   router.push("/dashboard")
+}else{
+  logOut();
+}
+  }
+
+}
+
+
+})
+
+
+
 </script>
 
 
@@ -65,10 +91,10 @@ else{
 
 <template>
   <RowComponent>
-    <ColumnComponent classNumber="2" backgroundColor="aliceblue">
-
-
- <h1 style="font-size: 2.5rem; font-weight: 800;color: #333;">SICM@</h1>
+    <ColumnComponent classNumber="2" backgroundColor="aliceblue" style="border-right: 5px solid #eee;">
+      <img  alt='logo' src="@/assets/ST_logo.svg" style="width:100px"/>
+      <img  alt='logo' src="@/assets/logo.svg" style="width:300px"/>
+ <!---<h1 style="font-size: 2.5rem; font-weight: 800;color: #333;">SICM@</h1>-->
 
 </ColumnComponent>
 

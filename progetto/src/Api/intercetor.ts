@@ -1,6 +1,6 @@
 import axios,{type InternalAxiosRequestConfig,type AxiosInstance} from "axios"
 import { useUserStore } from "../stores/counter";
-import { storeToRefs } from 'pinia'
+import router from '../router';
 
 
 
@@ -12,37 +12,45 @@ export const apiClient=axios.create({
 
 
 export const setHeader=(apiClient: AxiosInstance)=>{
-    
+    const token= localStorage.getItem("st")
+    if(token){
 apiClient.interceptors.request.use((config:InternalAxiosRequestConfig)=>{
 
-           const token= localStorage.getItem("st")
-       if(token){
+       
             
             config.headers.Authorization=`Bearer ${token}`;
             return config;
-       }else
-       return Promise.reject();
+      
 
 
       
     },(error)=>{
         return Promise.reject(error);
 
-    });}
+    });
+}else
+return { errore:"not have a token"}
+
+
+}
 
 
    export const checkResponse=(exception:{response:{status:number}})=>{
         const responseCode=exception?.response?.status;
         if(responseCode){
            
-            responseCode===401 || responseCode===403;
+           if( responseCode===401 || responseCode===403)
+           logOut();
         }
 
     }
 
 
 
-    const logOut=()=>{
-
+  export  const logOut=()=>{
+        const UserStore = useUserStore()
+        UserStore.removeUser();
+        localStorage.removeItem("st")
+        router.push('/')
     }
   

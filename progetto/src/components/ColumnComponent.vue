@@ -12,7 +12,7 @@ const props=defineProps<{
 </script>
 <template>
 
-<div :class="'column'+{classNumber}" :style="'background-color:'+{backgroundColor}">
+<div class=" column" :style="'background-color:'+{backgroundColor}">
   <slot></slot> 
 </div>
 
@@ -20,6 +20,7 @@ const props=defineProps<{
 </template>
 <style>
   .column {
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
